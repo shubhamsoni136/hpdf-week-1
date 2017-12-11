@@ -1,0 +1,20 @@
+{
+  "name": "HPDF",
+  "version": "0.1.0",
+  "description": "HPDF week 1 assignment",
+  "main": "hpdf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "request":"^2.81.0",
+    "cookie-parser":"*",
+    "ejs":"*",
+    "body-parser":"*",
+    "path":"*"
+  }
+}
