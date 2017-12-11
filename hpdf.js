@@ -88,7 +88,7 @@ app.get('/setcookie',function(req,res){
     res.send("cookies are already set");
   }
 });
-app.get('/getcookie',function(req,res){
+app.get('/getcookies',function(req,res){
   var cookie = req.cookies;
   if(cookie.name===undefined || cookie.age === undefined){
     res.send('coookies are not set first go and set cookies at <a href="http://localhost:8080/setcookie">set cookie</a>');
