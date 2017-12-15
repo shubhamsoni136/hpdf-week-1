@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.set('view engine','ejs');
 app.use(morgan('combined'));
 app.use(function(req,res,next){
-  console.log('conection from ip = '+req.ip+' to url = '+req.url);
+  console.log('conection from ip = ' + req.ip + ' to url = '+req.url);
   if(req.url === '/robot.txt') return res.status(403).render('default');
   next();
 });
@@ -20,7 +20,7 @@ app.get('/',function(req,res){
 });
 var author,count1,count2,article;
 app.get("/authors",function(req,res){
-     var w="<html><ol>";
+     var w='<html><ol>';
   request('https://jsonplaceholder.typicode.com/users', function (error, response, body) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
@@ -41,15 +41,15 @@ app.get("/authors",function(req,res){
       }
     }
     var m = author[i].name;
-    w=w+`<li> ${m} has published ${count3} articles</li>`;
-  };
-  w=w+"</ol></html>";
+    w=w+'<li>' + m + ' has published' + count3 + ' articles</li>';
+  }
+  w=w+'</ol></html>';
   res.send(w);
 });
 app.get('/setcookie',function(req,res){
   var cookie = req.cookies;
   if(cookie.name===undefined||cookie.age===undefined){
-    res.cookie('age',17,{maxAge:900000, httpOnly:true});
+    res.cookie('age',20,{maxAge:900000, httpOnly:true});
     res.cookie('name','shubham',{maxAge:900000,httpOnly:true});
     res.send("cookies set successfully");
   }
@@ -57,7 +57,7 @@ app.get('/setcookie',function(req,res){
     res.send("cookies are already set");
   }
 });
-app.get('/getcookies',function(req,res){
+app.get('/getcookie',function(req,res){
   var cookie = req.cookies;
   if(cookie.name===undefined || cookie.age === undefined){
     res.send('coookies are not set first go and set cookies at <a href="http://localhost:8080/setcookie">set cookie</a>');
@@ -82,5 +82,5 @@ app.post('/submitdata',function(req,res){
 });
 var port = 8080;
 app.listen(port,function(){
-  console.log(`imad app listening at port ${port}`);
+  console.log('imad app listening at port '+ port);
 });
