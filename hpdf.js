@@ -6,37 +6,6 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var ejs = require('ejs');
 var app = express();
-var template=`<html>
-<head>
-  <title>Index</title>
-</head>
-<body>
-  Enter data
-  <input type="text" id="item">
-  <input type="submit" value="submit" id='submit_btn'>
-  <script>
-  var submit = document.getElementById('submit_btn');
-  submit.onclick =function(){
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-      if(request.readyState === XMLHttpRequest.DONE){
-        if(request.status===200){
-          alert('data submitted successfully');
-        }
-        else{
-          alert(request.responseText.toString());
-        }
-      }
-    };
-    x = document.getElementById('item').value;
-    document.getElementById('item').value = "";
-    request.open('POST','http://localhost:8080/submitdata',true);
-    request.setRequestHeader('Content-Type','application/json');
-    request.send(JSON.stringify({"data":x}));
-  };
- </script>
-</body>
-</html>`;
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine','ejs');
@@ -104,7 +73,7 @@ app.get('/main.jpg',function(req,res){
   res.sendFile(path.join(__dirname,'assets/main.jpg'))
 });
 app.get('/input',function(req,res){
-  res.send(template);
+  res.render('input');
 });
 app.post('/submitdata',function(req,res){
   var data = req.body.data;
