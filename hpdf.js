@@ -18,33 +18,33 @@ app.use(function(req,res,next){
 app.get('/',function(req,res){
   res.send('hello world - shubham');
 });
-var author,count1,count2,article;
 app.get("/authors",function(req,res){
-     var w='<html><ol>';
-  request('https://jsonplaceholder.typicode.com/users', function (error, response, body) {
+  var author,count1,count2,article;
+     var w="<html><ol>";
+  request({url:"https://jsonplaceholder.typicode.com/users",json:true}, function (error, response, body) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
-    author = JSON.parse(body);
+    author = JSON.parse(JSON.stringify(body));
     count1 = author.length;
   });
-  request('https://jsonplaceholder.typicode.com/posts', function (error, response, body) {
+  request({url:"https://jsonplaceholder.typicode.com/posts",json:true}, function (error, response, body) {
     console.log('error:',error);
     console.log('statusCode:',response && response.statusCode);
-    article = JSON.parse(body);
+    article = JSON.parse(JSON.stringify(body));
     count2 = article.length;
-  });
-  for(var i=0;i<count1;i++){
-    var count3=0;
-    for(var j=0;j<count2;j++){
+    for(var i=0;i<count1;i++){
+      var count3=0;
+      for(var j=0;j<count2;j++){
       if(article[j].userId=== (i+1)){
         count3++;
       }
     }
     var m = author[i].name;
-    w=w+'<li>' + m + ' has published' + count3 + ' articles</li>';
+    w=w+'<li>' + m + ' has published ' + count3 + ' articles</li>';
   }
-  w=w+'</ol></html>';
+  w=w+"</ol></html>";
   res.send(w);
+  });
 });
 app.get('/setcookie',function(req,res){
   var cookie = req.cookies;
