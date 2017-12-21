@@ -10,9 +10,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine','ejs');
 app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(function(req,res,next){
   console.log('conection from ip = ' + req.ip + ' to url = '+req.url);
-  if(req.url === '/robot.txt') return res.status(403).render('default');
+  if(req.url === '/robots.txt') return res.status(403).render('default');
   next();
 });
 app.get('/',function(req,res){
@@ -57,7 +58,7 @@ app.get('/setcookie',function(req,res){
     res.send("cookies are already set");
   }
 });
-app.get('/getcookie',function(req,res){
+app.get('/getcookies',function(req,res){
   var cookie = req.cookies;
   if(cookie.name===undefined || cookie.age === undefined){
     res.send('coookies are not set first go and set cookies at <a href="http://localhost:8080/setcookie">set cookie</a>');
