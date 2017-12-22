@@ -13,7 +13,8 @@ Enter data
         request.onreadystatechange = function () {
             if(request.readyState === XMLHttpRequest.DONE){
                 if(request.status===200){
-                    alert('data submitted successfully.recieved data is '+ request.responseText.toString());
+                    var text1 = request.responseTest.toString();
+                    alert('recieved data is '+ text1);
                 }
                 else{
                     alert(request.responseText.toString());
@@ -22,7 +23,7 @@ Enter data
         };
         x = document.getElementById('item').value;
         document.getElementById('item').value = "";
-        request.open('POST','http://localhost:8080/submitdata',true);
+        request.open('POST','/submitdata',true);
         request.setRequestHeader('Content-Type','application/json');
         request.send(JSON.stringify({"data":x}));
     };
