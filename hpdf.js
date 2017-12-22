@@ -22,36 +22,36 @@ app.get('/',function(req,res){
 app.get("/authors",function(req,res){
   var author,count1,count2,article;
      var w="<html><ol>";
-  request({url:"https://jsonplaceholder.typicode.com/users",json:true}, function (error, response, body) {
+  request({url:"https://jsonplaceholder.typicode.com/users",json:true}, function (error, response, body1) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
-    author = JSON.parse(JSON.stringify(body));
+    author = JSON.parse(JSON.stringify(body1));
     count1 = author.length;
-  });
-  request({url:"https://jsonplaceholder.typicode.com/posts",json:true}, function (error, response, body) {
-    console.log('error:',error);
-    console.log('statusCode:',response && response.statusCode);
-    article = JSON.parse(JSON.stringify(body));
-    count2 = article.length;
-    for(var i=0;i<count1;i++){
-      var count3=0;
-      for(var j=0;j<count2;j++){
-      if(article[j].userId=== (i+1)){
-        count3++;
+    request({url:"https://jsonplaceholder.typicode.com/posts",json:true}, function (error, response, body2) {
+      console.log('error:',error);
+      console.log('statusCode:',response && response.statusCode);
+      article = JSON.parse(JSON.stringify(body2));
+      count2 = article.length;
+      for(var i=0;i<count1;i++){
+        var count3=0;
+        for(var j=0;j<count2;j++){
+          if(article[j].userId=== (i+1)){
+            count3++;
+          }
+        }
+        var m = author[i].name;
+        w=w+'<li>' + m + ' has published ' + count3 + ' articles</li>';
       }
-    }
-    var m = author[i].name;
-    w=w+'<li>' + m + ' has published ' + count3 + ' articles</li>';
-  }
-  w=w+"</ol></html>";
-  res.send(w);
+      w=w+"</ol></html>";
+      res.send(w);
+    });
   });
 });
 app.get('/setcookie',function(req,res){
   var cookie = req.cookies;
   if(cookie.name===undefined||cookie.age===undefined){
-    res.cookie('age',20,{maxAge:900000, httpOnly:true});
-    res.cookie('name','shubham',{maxAge:900000,httpOnly:true});
+    res.cookie('name','shubham',{maxAge:900000, httpOnly:true});
+    res.cookie('age','21',{maxAge:900000,httpOnly:true});
     res.send("cookies set successfully");
   }
   else{
@@ -79,7 +79,7 @@ app.get('/input',function(req,res){
 app.post('/submitdata',function(req,res){
   var data = req.body.data;
   console.log('recieved data is '+ data);
-  res.send('data submitted successfully');
+  res.send(data);
 });
 var port = 8080;
 app.listen(port,function(){
