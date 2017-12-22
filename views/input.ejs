@@ -13,7 +13,7 @@ Enter data
         request.onreadystatechange = function () {
             if(request.readyState === XMLHttpRequest.DONE){
                 if(request.status===200){
-                    alert('data submitted successfully');
+                    alert('data submitted successfully.recieved data is '+ request.responseText.toString());
                 }
                 else{
                     alert(request.responseText.toString());
